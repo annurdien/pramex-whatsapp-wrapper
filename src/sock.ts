@@ -41,7 +41,11 @@ export const startSock = async (handler: Function, config?: UserFacingSocketConf
             // }
         }
     }
-    const sock = makeWASocket(config)
+    const sock = makeWASocket({
+        ...config,
+        shouldSyncHistoryMessage: (prop) => true,
+        syncFullHistory: true,
+    })
 
     store.bind(sock.ev)
 

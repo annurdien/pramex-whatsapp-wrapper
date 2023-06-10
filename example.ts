@@ -26,4 +26,13 @@ appDefault.set(
 handler.use(appDefault)
 
 // Start sock and pass the handleSock from handler
-const sock = startSock(handler.handleSock)
+const sock = startSock(handler.handleSock).then((sock) => {
+    console.log('asdasd')
+    sock.ev.on('messaging-history.set', (data) => {
+        console.log('messaging-history.set', data.messages[0].message)
+    })
+
+    sock.ev.on('messages.upsert', (data) => {
+        console.log('messages.upsert', data.messages[0].message)
+    })
+})
